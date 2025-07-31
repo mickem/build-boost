@@ -31,6 +31,10 @@ inputs:
   directory:
     description: Destination directory
     required: false
+  defines:
+    description: Space-separated list of defines
+    required: false
+    default: ''
 
 outputs:
   root:
@@ -115,6 +119,10 @@ runs:
 
         $libraries = $libraries | %{"--with-$_"}
 
+        $defines = '${{ inputs.defines }}'
+        $defines = $defines.Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)
+        $defines = $defines | %{"--define-$_"}
+
         $bin_dir = '${{ steps.install.outputs.bin_dir }}'
         $path_sep = [IO.Path]::PathSeparator
         $env:Path = "$bin_dir$path_sep$env:PATH"
@@ -138,7 +146,8 @@ runs:
             --runtime-link $runtime_link `
             -- `
             $boost_dir `
-            $libraries
+            $libraries `
+            $defines
 
         $platformdir = $platform
         if ($platformdir -eq 'auto' -and $windows_host) {

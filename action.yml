@@ -138,7 +138,7 @@ runs:
         }
 
         boost-download --cache $base_dir -- $version $boost_dir
-        boost-build `
+        echo boost-build `
             --toolset $toolset `
             --platform $platform `
             --configuration $configuration `

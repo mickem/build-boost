@@ -121,7 +121,7 @@ runs:
 
         $defines = '${{ inputs.defines }}'
         $defines = $defines.Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)
-        $defines = $defines | %{"define-$_"}
+        $defines = $defines | %{"define=$_"}
 
         $bin_dir = '${{ steps.install.outputs.bin_dir }}'
         $path_sep = [IO.Path]::PathSeparator

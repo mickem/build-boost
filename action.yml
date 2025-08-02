@@ -148,6 +148,16 @@ runs:
             $boost_dir `
             $libraries `
             $defines
+        boost-build `
+            --toolset $toolset `
+            --platform $platform `
+            --configuration $configuration `
+            --link $link `
+            --runtime-link $runtime_link `
+            -- `
+            $boost_dir `
+            $libraries `
+            $defines
 
         $platformdir = $platform
         if ($platformdir -eq 'auto' -and $windows_host) {
